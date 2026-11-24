@@ -1,0 +1,12 @@
+services:
+  ptz-controller:
+    build: .
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      PORT: 3000
+      DATABASE_PATH: /data/ptz.sqlite
+    volumes:
+      - ptz-data:/data
+volumes:
+  ptz-data:

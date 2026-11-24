@@ -1,44 +1,28 @@
 # PTZ Joystick Controller
 
-Aplicación web multiplataforma para controlar cámaras PTZ por **VISCA over IP** desde joysticks USB conectados a las computadoras de los operadores.
+Fase 1: administración de cámaras PTZ con API HTTP, SQLite persistente y una interfaz React para alta, edición y baja.
 
-**Flujo:** Joystick USB → Gamepad API → React → WebSocket → Node.js → VISCA UDP → cámara PTZ.
+## Arranque
 
-## Estado del proyecto
+Requiere Node.js 22+ y Docker Compose.
 
-| Fase | Alcance | Estado |
-|------|---------|--------|
-| 1 | Monorepo, Docker Compose, servidor, CRUD de cámaras, persistencia SQLite, UI básica | 🔄 en curso |
-| 2 | Gamepad API, visualización de ejes/botones, asignación configurable | ⬜ pendiente |
-| 3 | Controlador VISCA UDP real con simulador/mock y pruebas por modelo | ⬜ pendiente |
-| 4 | Selección anterior/siguiente, curvas, rampas y STOP de seguridad | ⬜ pendiente |
-| 5 | Concurrencia multioperador, autenticación, logs y pruebas en estudio | ⬜ pendiente |
-
-## Documentación
-
-- [`docs/SPEC-v1.0.md`](docs/SPEC-v1.0.md) — especificación funcional y técnica v1.0 (fuente de verdad del alcance)
-
-## Estructura prevista
-
-```
-apps/web          React + TypeScript — pantallas de operación, cámaras, calibración y perfiles
-apps/server       Node.js + TypeScript — API HTTP, WebSocket, sesiones, arbitraje y watchdog
-packages/shared   Tipos, esquemas de validación y contratos de eventos
-apps/server/src/visca   Adaptadores UDP y variantes por fabricante
+```bash
+npm install
+npm run build
+npm test
+docker compose up -d
 ```
 
-## Requisitos
+Abrir `http://localhost:3000`. La comprobación de servicio es `curl -f http://localhost:3000/api/health`. Para parar: `docker compose down`; el volumen `ptz-data` conserva la base.
 
-- Node.js 20+
-- Docker + Docker Compose (para despliegue)
-- Navegador con soporte de Gamepad API (Chrome, Edge, Firefox)
+Localmente, tras compilar: `PORT=3000 DATABASE_PATH=./data/ptz.sqlite npm run start --workspace=@ptz/server`.
 
-> **Gamepad API requiere contexto seguro:** HTTPS o `localhost`. Sobre HTTP remoto el navegador no expone los gamepads.
+## Variables
 
-## Datos pendientes de validar
+El servidor lee `PORT` (por defecto `3000`) y `DATABASE_PATH` (por defecto `./data/ptz.sqlite`). Docker fija el segundo a `/data/ptz.sqlite`.
 
-Marcas y modelos de cámaras, variante VISCA over IP, puertos, límites de velocidad, modelos de joystick y entorno de despliegue. El adaptador VISCA es intercambiable y existe un simulador para desarrollar sin hardware.
+## Alcance actual
 
-## Licencia
+Incluye CRUD de cámaras, perfiles persistibles por API, migraciones SQLite y contrato/mock VISCA. No incluye Gamepad, WebSocket operativo, tráfico VISCA UDP, selección de cámara, curvas/rampas, autenticación ni arbitraje.
 
-MIT
+Se usó npm workspaces para no requerir otro gestor. Ver [API](docs/API.md), [arquitectura](docs/ARCHITECTURE.md), [operación](docs/OPERATIONS.md) y [VISCA](docs/VISCA.md).
