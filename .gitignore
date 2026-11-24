@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+.env
+*.db
+*.sqlite
+*.sqlite3
+coverage/
+.hermes/
+.DS_Store
+*.log
