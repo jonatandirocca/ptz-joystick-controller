@@ -5,6 +5,9 @@ build/
 *.db
 *.sqlite
 *.sqlite3
+data/
+*.sqlite-wal
+*.sqlite-shm
 coverage/
 .hermes/
 .DS_Store

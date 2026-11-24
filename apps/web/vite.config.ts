@@ -1,2 +1,7 @@
-import { defineConfig } from 'vite'; import react from '@vitejs/plugin-react'; import path from 'node:path';
-export default defineConfig({ plugins: [react()], resolve: { alias: { '@ptz/shared': path.resolve(import.meta.dirname, '../../packages/shared/src/index.ts') } } });
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'node:path';
+export default defineConfig({
+  plugins: [react()],
+  resolve: { alias: { '@ptz/shared': path.resolve(import.meta.dirname, '../../packages/shared/src/index.ts') } },
+});
