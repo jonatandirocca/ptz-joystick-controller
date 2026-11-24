@@ -1,0 +1,9 @@
+# Documentación de proceso y especificación original de Jonatan.
+# No se reformatean: SPEC-v1.0.md es la fuente de verdad y se preserva tal cual.
+docs/SPEC-v1.0.md
+AUDIT-BRIEF-*.md
+AUDIT-*.md
+FIX-BRIEF-*.md
+BRIEF-*.md
+PHASE*-REPORT.md
+FIX-REPORT-*.md
