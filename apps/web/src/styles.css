@@ -50,6 +50,59 @@ td {
 [role='alert'] {
   color: #a11;
 }
+.gamepad-list {
+  display: grid;
+  gap: 1rem;
+}
+.gamepad {
+  padding: 1rem;
+  border: 1px solid #d8dde6;
+  border-radius: 6px;
+}
+.gamepad h3,
+.gamepad h4 {
+  margin: 0.4rem 0;
+}
+.axis {
+  display: grid;
+  grid-template-columns: minmax(9rem, auto) 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.35rem 0;
+}
+meter {
+  width: 100%;
+}
+.buttons,
+.profile-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-left: 0;
+}
+.buttons span,
+.profile-list li {
+  list-style: none;
+  padding: 0.3rem 0.45rem;
+  border-radius: 4px;
+  background: #edf0f4;
+}
+.buttons .pressed {
+  color: white;
+  background: #12663d;
+}
+.profile-form {
+  margin-top: 1rem;
+}
+.mapping-input {
+  display: flex;
+  gap: 0.4rem;
+}
+fieldset {
+  display: grid;
+  grid-column: 1 / -1;
+  gap: 0.6rem;
+}
 @media (max-width: 600px) {
   form {
     grid-template-columns: 1fr;

@@ -112,6 +112,19 @@ describe('API REST', () => {
     await request(app).get('/api/profiles').expect(200, [profile]);
   });
 
+  it('conserva un perfil tras reabrir SQLite mediante la API', async () => {
+    const directory = mkdtempSync(join(tmpdir(), 'ptz-profile-'));
+    directories.push(directory);
+    const databasePath = join(directory, 'ptz.sqlite');
+    const firstStore = new Store(databasePath);
+    await request(createApp(firstStore)).put('/api/profiles').send(profile).expect(200, profile);
+    firstStore.close();
+
+    const secondStore = new Store(databasePath);
+    stores.push(secondStore);
+    await request(createApp(secondStore)).get('/api/profiles').expect(200, [profile]);
+  });
+
   it('informa la salud de la base SQLite, incluso cerrada', async () => {
     const healthyStore = new Store(':memory:');
     stores.push(healthyStore);
