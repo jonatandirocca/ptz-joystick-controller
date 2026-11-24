@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import type { Camera, CreateCameraDto } from '@ptz/shared';
+import { GamepadProfiles, GamepadStatus } from './GamepadProfiles.js';
+import { useGamepad } from './useGamepad.js';
 import './styles.css';
 
 const empty: CreateCameraDto = {
@@ -16,6 +18,7 @@ const empty: CreateCameraDto = {
 };
 
 function App() {
+  const gamepads = useGamepad();
   const [cameras, setCameras] = useState<Camera[]>([]);
   const [form, setForm] = useState<CreateCameraDto>(empty);
   const [editing, setEditing] = useState<string | null>(null);
@@ -200,6 +203,11 @@ function App() {
           </table>
         )}
       </section>
+      <section>
+        <h2>Estado del joystick</h2>
+        <GamepadStatus gamepads={gamepads} />
+      </section>
+      <GamepadProfiles gamepads={gamepads} />
     </main>
   );
 }
